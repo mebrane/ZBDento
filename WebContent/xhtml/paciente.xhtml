@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head></h:head>
+<h:body>
+	<h:form>
+		<table border="2" align="center">
+			<tr align="center">
+				<td colspan="2"><b> <h:outputText value="Registar paciente"
+							rendered="#{!pacienteBean.sw_edit}" /> <h:outputText
+							value="Actualizar paciente" rendered="#{pacienteBean.sw_edit}" />
+				</b></td>
+			</tr>
+
+			<tr>
+				<td><h:outputText value="Id:" /></td>
+				<td><h:inputText value="#{pacienteBean.paci_id}"
+						disabled="true" /></td>
+			</tr>
+			<tr>
+				<th><h:outputText value="Tipo de paciente:" /></th>
+				<td><h:selectOneMenu
+						value="#{pacienteBean.tipoPaciente.tpac_id}" var="cbotpac"
+						class="ui-selectonemenu-label ui-inputfield ui-corner-all">
+						<f:selectItem itemValue="-1"
+							itemLabel="-Seleccionar tipo de paciente-" />
+						<f:selectItems value="#{pacienteBean.listaTipoPaciente}"
+							var="tpacs" itemValue="#{tpacs.tpac_id}"
+							itemLabel="#{tpacs.tpac_nomb}" />
+					</h:selectOneMenu></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Documento:" /></td>
+				<td><h:inputText value="#{pacienteBean.paci_dni}"
+						maxlength="30" /></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Nombre (s):" /></td>
+				<td><h:inputText value="#{pacienteBean.paci_nomb}"
+						maxlength="30" /></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Apellido:" /></td>
+				<td><h:inputText value="#{pacienteBean.paci_apel}"
+						maxlength="30" /></td>
+			</tr>
+		
+
+
+			<tr>
+				<th>Fecha de nacimiento:</th>
+				<td><p:calendar value="#{pacienteBean.paci_fnac}" mode="popup"
+						popupIconOnly="true" showOn="button" pattern="dd/MM/yyyy">
+					</p:calendar></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Teléfono" /></td>
+				<td><h:inputText value="#{pacienteBean.paci_telf}"
+						maxlength="20" /></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Dirección" /></td>
+				<td><h:inputText value="#{pacienteBean.paci_dire}"
+						maxlength="50" /></td>
+			</tr>
+			<tr align="center">
+				<td colspan="2"><p:commandButton value="Registrar"
+						action="/xhtml/principal.xhtml"
+						actionListener="#{pacienteBean.insertar}"
+						rendered="#{!pacienteBean.sw_edit}" update="@form"
+						onclick="start()" /> <p:commandButton value="Limpiar"
+						actionListener="#{pacienteBean.limpiar}"
+						rendered="#{!pacienteBean.sw_edit}" update="@form" /> <p:commandButton
+						value="Actualizar" onclick="start()"
+						actionListener="#{pacienteBean.modificar}" icon="ui-icon.disk"
+						rendered="#{pacienteBean.sw_edit}" update="@form"
+						action="/xhtml/listar_pacientes.xhtml" /></td>
+
+			</tr>
+			<tr>
+				<td colspan="2"><p:progressBar widgetVar="pb" /></td>
+			</tr>
+		</table>
+	</h:form>
+	<script type="text/javascript">
+		function start() {
+			this.progressInterval = setInterval(function() {
+				PF('pb').setValue(PF('pb').getValue() + 50);
+			}, 2000);
+		}
+		
+		function limpiar(){
+			var inputs=document.querySelectorAll('input');
+			for (var i in inputs) {
+				i.value="";
+			}
+		}
+	</script>
+	<h:form id="form2">
+		<h:commandLink value="Principal" action="/xhtml/principal.xhtml"></h:commandLink>
+	</h:form>
+</h:body>
+</html>

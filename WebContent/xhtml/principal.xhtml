@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head></h:head>
+<h:body>
+	<h:form>
+		<table>
+			<tr>
+				<td><h:outputText value="PRINCIPAL" /></td>
+			</tr>
+			<tr>
+			<td><h:commandLink 
+						value="Nuevo paciente"
+						action="/xhtml/paciente.xhtml"
+						actionListener="#{pacienteBean.accion_insertar}"
+						/></td>
+			
+			</tr>
+				<tr>
+			<td><h:commandLink 
+						value="Listar pacientes"
+						action="/xhtml/lista_pacientes.xhtml"
+						/></td>
+			
+			</tr>
+		</table>
+	</h:form>
+</h:body>
+</html>

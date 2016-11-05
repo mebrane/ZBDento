@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Lista de pacientes</title>
+</h:head>
+<h:body>
+	<h:form id="form1">
+		<table align="center">
+			<tr>
+				<td colspan="2" align="center"><b><h:outputText
+							value="Buscar pacientes" /></b></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="ID:" /></td>
+				<td><h:inputText value="#{pacienteBean.paci_nomb}" /> <p:commandButton
+						value="Buscar" actionListener="#{pacienteBean.busqueda}"
+						icon="ui-icon-search" update="@form" ajax="true" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><p:dataTable var="listaCargada"
+						value="#{pacienteBean.listaPaciente}" rows="5" paginator="true">
+						<f:facet name="header">
+							<h:outputText value="pacientes Listados" />
+						</f:facet>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="ID" />
+							</f:facet>
+							<h:outputText value="#{listaCargada.paci_id}"></h:outputText>
+						</p:column>
+							<p:column>
+							<f:facet name="header">
+								<h:outputText value="Paciente" />
+							</f:facet>
+							<h:outputText
+								value="#{listaCargada.paci_apel}, #{listaCargada.paci_nomb}"></h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Tipo de paciente" />
+							</f:facet>
+							<h:outputText
+								value="#{listaCargada.tipoPaciente.tpac_nomb}"></h:outputText>
+						</p:column>
+				
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Acciones" />
+							</f:facet>
+
+							<p:commandLink value="Eliminar"
+								actionListener="#{pacienteBean.seleccionar}"		
+								onclick="PF('cd').show()"
+								>
+								<f:attribute name="atributo_id" value="#{listaCargada.paci_id}"></f:attribute>
+							</p:commandLink>
+							|
+							<p:commandLink value="Editar"
+								actionListener="#{pacienteBean.obtener_datos}"
+								action="/xhtml/paciente.xhtml"
+								>
+								<f:attribute name="atributo_id" value="#{listaCargada.paci_id}"></f:attribute>
+							</p:commandLink>
+							<p:confirmDialog message="Desea eliminar?"
+								header="Confirmacion!!!" severity="alert" widgetVar="cd">
+								<p:commandButton value="Si"
+									actionListener="#{pacienteBean.borrar}" ajax="true"
+									update="@form" onclick="PF('cd').hide();">
+									<f:attribute name="atributo_id" value="#{listaCargada.paci_id}"></f:attribute>
+								</p:commandButton>
+								<p:commandButton value="No" onclick="PF('cd').hide();"
+									type="button" />
+							</p:confirmDialog>
+
+						</p:column>
+						<f:facet name="footer">Existen <h:outputText
+								value="#{pacienteBean.listaPacienteTamano}" /> registros</f:facet>
+					</p:dataTable></td>
+			</tr>
+		</table>
+	</h:form>
+	<h:form id="form2">
+		<h:commandLink value="Principal" action="/xhtml/principal.xhtml"></h:commandLink>
+	</h:form>
+</h:body>
+</html>
